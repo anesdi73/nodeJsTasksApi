@@ -12,7 +12,8 @@ export class TasksStorage{
     constructor() {
         
     }
-    getTasks():Promise<Task[]> {
+    getTasks(): Promise<Task[]> {
+        //throw new Error("Desastre Total");
         return Promise.resolve(this.tasks);
     }
 }
