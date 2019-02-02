@@ -20,6 +20,14 @@ class AppTasksApi {
 				const tasks = await this.taksStorage.getTasks();
 				res.json(tasks.map(t => this.formatTask(t)));
 			})
+		);
+		this.express.post(
+			"/tasks",
+			wrapAsync(async (req: Request, res: Response) => {
+				const taskToAdd:Task = req.body;
+				const addedTask:Task =await this.taksStorage.addTask(taskToAdd);
+				res.status(201). json(this.formatTask(addedTask));
+			})
         );
         //The route is unknown
 		this.express.use((req, res, next) => {
