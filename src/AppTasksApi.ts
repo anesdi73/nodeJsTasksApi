@@ -20,7 +20,8 @@ class AppTasksApi {
 				const tasks = await this.taksStorage.getTasks();
 				res.json(tasks.map(t => this.formatTask(t)));
 			})
-		);
+        );
+        //The route is unknown
 		this.express.use((req, res, next) => {
 			res.status(404).send("Sorry cant find that!");
         });
@@ -29,11 +30,25 @@ class AppTasksApi {
             res.status(500).send(error.toString());
 		});
 	}
-	private formatTask(task: Task) {
+	/**
+     * Translate status code to text
+     *
+     * @private
+     * @param {Task} task
+     * @returns
+     * @memberof AppTasksApi
+     */
+    private formatTask(task: Task) {
 		task.taskStatus = TaskStatus[task.taskStatus] as any;
 		return task;
 	}
 }
+/**
+ * easy exceptions handling when async await is used
+ *
+ * @param {Function} fn
+ * @returns
+ */
 function wrapAsync(fn: Function) {
 	return (req: Request, res: Response, next: NextFunction) => {
 		// Make sure to `.catch()` any errors and pass them along to the `next()`
