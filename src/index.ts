@@ -2,6 +2,7 @@ import AppTasksApi from './AppTasksApi'
 
 const port =  8888
 const app = new AppTasksApi();
+app.initialize();
 app.express.listen(port, (err:any) => {
   if (err) {
     return console.log(err)
